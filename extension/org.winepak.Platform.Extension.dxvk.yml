@@ -1,10 +1,10 @@
 build-extension: true
 
 id: org.winepak.Platform.Extension.dxvk
-branch: 0.54
+branch: 1.5.1
 
 runtime: org.winepak.Platform
-runtime-version: 3.0
+runtime-version: 4.0
 sdk: org.winepak.Sdk
 
 separate-locales: false
@@ -17,14 +17,22 @@ modules:
       - install -d ${FLATPAK_DEST}/bin/
       - install -d ${FLATPAK_DEST}/dlls/x32/
       - install -d ${FLATPAK_DEST}/dlls/x64/
+      - install -D x32/d3d9.dll ${FLATPAK_DEST}/dlls/x32/
+      - install -D x64/d3d9.dll ${FLATPAK_DEST}/dlls/x64/
+      - install -D x32/d3d10.dll ${FLATPAK_DEST}/dlls/x32/
+      - install -D x64/d3d10.dll ${FLATPAK_DEST}/dlls/x64/
+      - install -D x32/d3d10_1.dll ${FLATPAK_DEST}/dlls/x32/
+      - install -D x64/d3d10_1.dll ${FLATPAK_DEST}/dlls/x64/
+      - install -D x32/d3d10core.dll ${FLATPAK_DEST}/dlls/x32/
+      - install -D x64/d3d10core.dll ${FLATPAK_DEST}/dlls/x64/
       - install -D x32/d3d11.dll ${FLATPAK_DEST}/dlls/x32/
       - install -D x64/d3d11.dll ${FLATPAK_DEST}/dlls/x64/
       - install -D x32/dxgi.dll ${FLATPAK_DEST}/dlls/x32/
       - install -D x64/dxgi.dll ${FLATPAK_DEST}/dlls/x64/
     sources:
       - type: archive
-        url: https://github.com/doitsujin/dxvk/releases/download/v0.54/dxvk-0.54.tar.gz
-        sha256: 1c2f186baaa01d2de7b832f6f05021bdd29eccb65fc197c8b15adfd4e08f9640
+        url: https://github.com/doitsujin/dxvk/releases/download/v1.5.1/dxvk-1.5.1.tar.gz
+        sha256: 474ce9995edd47a3bd347a8f3263f35cf8df2676f5b16668bf38efa298d75c01
 
   - name: scripts
     buildsystem: simple

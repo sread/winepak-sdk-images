@@ -1,20 +1,27 @@
+build-runtime: true
+
 id: org.winepak.Sdk
 id-platform: org.winepak.Platform
-branch: 4.0
+branch: 5.0
 
 runtime: org.freedesktop.Platform
-runtime-version: 19.08
+runtime-version: 1.6
 sdk: org.freedesktop.Sdk
 
 add-extensions:
-  org.gnome.Platform.Compat.i386:
-    directory: lib/i386-linux-gnu
-    version: "3.34"
+  org.winepak.Platform.Compat32:
+    directory: lib/32bit
+    version: 5.0
+    versions: 5.0
+    add-ld-path: lib
+    subdirectories: false
+    autodelete: false
+    no-autodownload: false
 
   org.freedesktop.Platform.GL32:
-    directory: lib/i386-linux-gnu/GL
-    version: "1.4"
-    versions: "19.08;1.4"
+    directory: lib/32bit/lib/GL
+    version: 1.4
+    versions: 1.6;1.4
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -25,22 +32,22 @@ add-extensions:
 
   org.winepak.Platform.Wine:
     directory: lib/wine
-    version: 4.0
-    versions: 4.0
+    version: 5.0
+    versions: 5.0
     add-ld-path: lib
     subdirectories: false
     autodelete: false
 
   org.winepak.Platform.Extension:
     directory: lib/extension
-    version: 4.0
+    version: 5.0
     subdirectories: true
     autodelete: true
     no-autodownload: true
 
   org.winepak.Sdk.Extension:
     directory: lib/sdk
-    version: 4.0
+    version: 5.0
     subdirectories: true
     autodelete: true
     no-autodownload: true
@@ -56,8 +63,8 @@ inherit-extensions:
   - org.freedesktop.Sdk.Extension
 
 finish-args:
-  - --sdk=org.winepak.Sdk//4.0
-  - --runtime=org.winepak.Platform//4.0
+  - --sdk=org.winepak.Sdk//5.0
+  - --runtime=org.winepak.Platform//5.0
   - --allow=multiarch
   - --env=PATH=/app/bin:/app/lib/wine/bin:/app/lib/wine-32bit/bin:/app/lib/32bit/wine:/usr/lib/wine/bin:/usr/lib/wine-32bit/bin:/usr/bin:/usr/lib/32bit/bin
   - --env=XDG_DATA_DIRS=/app/share:/usr/share:/usr/share/runtime/share:/run/host/share
@@ -187,8 +194,8 @@ modules:
       - /share/applications
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/4.0/wine-4.0.3.tar.xz
-        sha256: 25026d9f98a5d62583b8a02c91b1adaca9a2ff000d54095bb274045379e00fda
+        url: https://dl.winehq.org/wine/source/5.0/wine-5.0.tar.xz
+        sha256: 181550ba69a80b00c631f80c28ff7642264613bbecdb0c0fc04d6534866713b4
 
   - name: wine-win32
     only-arches:
@@ -218,28 +225,28 @@ modules:
       - /share/applications
     sources:
       - type: archive
-        url: https://dl.winehq.org/wine/source/4.0/wine-4.0.3.tar.xz
-        sha256: 25026d9f98a5d62583b8a02c91b1adaca9a2ff000d54095bb274045379e00fda
+        url: https://dl.winehq.org/wine/source/5.0/wine-5.0.tar.xz
+        sha256: 181550ba69a80b00c631f80c28ff7642264613bbecdb0c0fc04d6534866713b4
 
   - name: wine-gecko
     buildsystem: simple
     build-commands:
-      - install -D --target-directory=/usr/share/wine/gecko/wine_gecko-*.msi
+      - install -D --target-directory=/usr/share/wine/gecko/ wine-gecko-*.msi
     no-make-install: true
     sources:
       - type: file
         only-arches:
           - x86_64
-        url: https://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86_64.msi
-        sha256: c565ea25e50ea953937d4ab01299e4306da4a556946327d253ea9b28357e4a7d
+        url: https://dl.winehq.org/wine/wine-gecko/2.47.1/wine-gecko-2.47.1-x86_64.msi
+        sha256: 69312e79a988da3e7d292382005e92bc4d4b2a52a23c34440ae3007feb57474a
       - type: file
-        url: https://dl.winehq.org/wine/wine-gecko/2.47/wine_gecko-2.47-x86.msi
-        sha256: 3b8a361f5d63952d21caafd74e849a774994822fb96c5922b01d554f1677643a
+        url: https://dl.winehq.org/wine/wine-gecko/2.47.1/wine-gecko-2.47.1-x86.msi
+        sha256: f00b0e2892404827e8ce6811dedfc25ae699a09955bb3df1bbb31753e51da051
 
   - name: wine-mono
     buildsystem: simple
     build-commands:
-      - install -D --target-directory=/usr/share/wine/mono/wine-mono-*.msi
+      - install -D --target-directory=/usr/share/wine/mono/ wine-mono-*.msi
     no-make-install: true
     sources:
     - type: file
@@ -250,8 +257,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://www.cabextract.org.uk/cabextract-1.9.1.tar.gz
-        sha256: afc253673c8ef316b4d5c29cc4aa8445844bee14afffbe092ee9469405851ca7
+        url: https://www.cabextract.org.uk/cabextract-1.6.tar.gz
+        sha256: cee661b56555350d26943c5e127fc75dd290b7f75689d5ebc1f04957c4af55fb
 
   - name: winetricks
     buildsystem: simple
@@ -276,4 +283,3 @@ modules:
         path: org.winepak.Sdk.appdata.xml
       - type: file
         path: org.winepak.Platform.appdata.xml
-

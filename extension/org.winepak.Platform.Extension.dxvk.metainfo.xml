@@ -5,5 +5,5 @@
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>LicenseRef-proprietary</project_license>
     <name>dxvk</name>
-    <summary>Add D3D9, D3D10 and D3D11 on Vulkan support to an application</summary>
+    <summary>Add DirectX11 on Vulkan support to an application</summary>
 </component>

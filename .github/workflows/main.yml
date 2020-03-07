@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - github-ci
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install flatpak
+      run: apt install flatpak
+    - name: Install org.freedesktop.Sdk and org.freedesktop.Platform
+      run: |
+        flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+        flatpak install flathub org.freedesktop.Sdk
+        flatpak install flathub org.freedesktop.Platform
+    - name: Setup repository
+      run: flatpak --user remote-add --no-gpg-verify --if-not-exists winepak winepak-repo
+    - name: Build runtime
+      run: flatpak-builder --arch=x86_64 --ccache --keep-build-dirs --force-clean --repo=winepak-repo builds/winepak-sdk-images-x86_64 org.winepak.Sdk.yml
+    - uses: actions/upload-artifact@v1
+      with:
+        name: winepake-repo
+        path: winepak-repo

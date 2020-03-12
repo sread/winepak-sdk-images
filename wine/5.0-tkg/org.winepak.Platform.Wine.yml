@@ -1,10 +1,10 @@
 build-extension: true
 
 id: org.winepak.Platform.Wine
-branch: 3.10-staging
+branch: 5.0-tkg
 
 runtime: org.winepak.Platform
-runtime-version: 3.0
+runtime-version: 5.0
 sdk: org.winepak.Sdk
 
 separate-locales: false
@@ -48,15 +48,9 @@ modules:
       - /share/man
       - /share/applications
     sources:
-      - type: archive
-        url: https://dl.winehq.org/wine/source/3.x/wine-3.10.tar.xz
-        sha256: d7505cc79c7cd8950f1a46ecfcc0ae2ecc71717ce85414846264395b1e7ac6b5
-      - type: archive
-        url: https://github.com/wine-staging/wine-staging/archive/v3.10.tar.gz
-        sha256: 3f44f24dab0d59e08a2395960756a65485f0f5201dde2f8381d680ff235cf22d
-      - type: shell
-        commands:
-          - ./patches/patchinstall.sh DESTDIR=$(pwd) --all
+      - type: git
+        url: https://github.com/lutris/wine/
+        commit: 99849d3429259350e24f4870c69aea36b007bcd8
 
   - name: wine-staging-win32
     only-arches:
@@ -84,15 +78,9 @@ modules:
       - /share/man
       - /share/applications
     sources:
-      - type: archive
-        url: https://dl.winehq.org/wine/source/3.x/wine-3.10.tar.xz
-        sha256: d7505cc79c7cd8950f1a46ecfcc0ae2ecc71717ce85414846264395b1e7ac6b5
-      - type: archive
-        url: https://github.com/wine-staging/wine-staging/archive/v3.10.tar.gz
-        sha256: 3f44f24dab0d59e08a2395960756a65485f0f5201dde2f8381d680ff235cf22d
-      - type: shell
-        commands:
-          - ./patches/patchinstall.sh DESTDIR=$(pwd) --all
+      - type: git
+        url: https://github.com/lutris/wine/
+        commit: 26def49abde31874dfeb1918f752b885c8d81f27
 
   - name: metainfo
     buildsystem: simple
@@ -102,4 +90,3 @@ modules:
     sources:
       - type: file
         path: org.winepak.Platform.Wine.metainfo.xml
-

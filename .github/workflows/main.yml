@@ -14,9 +14,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install flatpak
       run: sudo apt-get install flatpak
+    - name: Add flathub remote
+      run: sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     - name: Install org.freedesktop.Sdk and org.freedesktop.Platform
       run: |
-        sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
         flatpak install flathub org.freedesktop.Sdk
         flatpak install flathub org.freedesktop.Platform
     - name: Setup repository
